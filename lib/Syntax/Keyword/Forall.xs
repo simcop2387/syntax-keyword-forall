@@ -33,32 +33,11 @@
 #  define OpSIBLING(op)  (op->op_sibling)
 #endif
 
-#if !HAVE_PERL_VERSION(5, 24, 0)
-#  include "cx_pushblock.c.inc"
-#  include "cx_pusheval.c.inc"
-#endif
-
 #if !HAVE_PERL_VERSION(5, 22, 0)
 #  include "block_start.c.inc"
 #  include "block_end.c.inc"
 
 #  define CvPADLIST_set(cv, padlist)  (CvPADLIST(cv) = padlist)
-#endif
-
-#if !HAVE_PERL_VERSION(5, 18, 0)
-#  define PadARRAY(pad)           AvARRAY(pad)
-#  define PadMAX(pad)             AvFILLp(pad)
-
-typedef AV PADNAMELIST;
-#  define PadlistARRAY(pl)        ((PAD **)AvARRAY(pl))
-#  define PadlistNAMES(pl)        (*PadlistARRAY(pl))
-
-typedef SV PADNAME;
-#  define PadnamePV(pn)           (SvPOKp(pn) ? SvPVX(pn) : NULL)
-#  define PadnameLEN(pn)          SvCUR(pn)
-#  define PadnameOUTER(pn)        !!SvFAKE(pn)
-#  define PadnamelistARRAY(pnl)   AvARRAY(pnl)
-#  define PadnamelistMAX(pnl)     AvFILLp(pnl)
 #endif
 
 /* Currently no version of perl makes this visible, so we always want it. Maybe
